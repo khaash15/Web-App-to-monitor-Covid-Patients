@@ -1,0 +1,78 @@
+package sample;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.*;
+public class loginDoctor {
+	public loginDoctor() 
+    {
+        JFrame x =new JFrame("LOGIN PAGE");
+        x.setBounds(100, 100, 400, 300);
+        JLabel l1=new JLabel("Username");
+        l1.setBounds(50,50, 100, 30);
+        
+        JLabel l2=new JLabel("Password");
+        l2.setBounds(50,100, 100, 30);
+       
+        JTextField t1=new JTextField();
+        t1.setBounds(150, 50, 150, 30);
+        JPasswordField j=new JPasswordField();
+        j.setBounds(150, 100, 150, 30);
+        JButton b=new JButton("Submit");
+        b.setBounds(150, 180, 100, 40);
+        b.addActionListener(new  ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             int p=JOptionPane.showConfirmDialog(x,"Are you Sure?");  
+                    if(p==JOptionPane.YES_OPTION){  
+                    	JOptionPane.showMessageDialog(x,"Success");
+                    	new viewDoctor();
+        		    }
+                    try
+                   {
+               String Username=t1.getText();
+               String Password=j.getText();
+      
+               Connection con=null;
+               Class.forName("com.mysql.cj.jdbc.Driver"); //Registering JDBC Driver
+        	   con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Khaash@123");
+               Statement  st = con.createStatement();
+               String a="select * from patienthealthdetails";
+               ResultSet h= st.executeQuery(a);
+               
+               while(h.next())
+               {
+            	   System.out.println("Patient ID Number : "+h.getString("int_patid"));
+                   System.out.println("Name : "+h.getString("str_name"));  
+                   System.out.println("Date : "+h.getString("str_date"));
+                   System.out.println("Time : "+h.getString("str_time"));
+                   System.out.println("Pulse Rate : "+h.getString("str_pulserate"));
+                   System.out.println("Oxygen Level: "+h.getString("str_oxylvl")); 
+                   System.out.println("Temperature: "+h.getString("str_temp"));
+                   System.out.println("Other Symptoms: "+h.getString("str_othersymptoms"));
+                   System.out.println();
+               }
+               con.close();
+           }
+           catch(Exception ec)
+           {
+               System.out.println(ec);
+           }
+              
+         }
+        });
+        x.add(l1);x.add(l2);x.add(t1);x.add(j);x.add(b);
+        x.setLayout(null);
+        x.setVisible(true);
+        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+}
+	public static void main(String args[])
+	{
+	loginDoctor Demo2=new loginDoctor();
+	}
+}
