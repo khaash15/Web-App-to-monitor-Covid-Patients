@@ -1,1 +1,1 @@
-# Web-App-to-monitor-Covid-Patients
+# Web Applcation to monitor Covid Patients
