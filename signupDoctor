@@ -1,0 +1,322 @@
+package sample;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.ItemSelectable;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class signupDoctor extends JFrame implements ActionListener{
+	JLabel lbl_docid,lbl_name,lbl_spc,lbl_phno,lbl_city,lbl_state,lbl_pincode,lbl_gender,lbl_username,lbl_password;
+	JTextField txt_docid,txt_name,txt_spc,txt_phno,txt_pincode,txt_city,txt_state,txt_username,txt_password;
+	JComboBox jcb_gender;
+	JButton jbtn_submit,jbtn_Back,jbtn_view;
+	Container co;
+	public signupDoctor() {
+		co=getContentPane();
+		co.setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		lbl_docid=new JLabel("Doctor ID Number : ");
+		lbl_name=new JLabel("Name : ");
+		lbl_spc=new JLabel("Specialization : ");
+		lbl_phno=new JLabel("Contact Number : ");
+		lbl_gender=new JLabel("Gender : ");
+		lbl_city=new JLabel("City : ");
+		lbl_state=new JLabel("State : ");
+		lbl_pincode=new JLabel("Pin Code : ");
+		lbl_username=new JLabel("Username : ");
+		lbl_password=new JLabel("Password : ");
+		
+		txt_docid= new JTextField();
+		txt_name=new JTextField();
+		txt_spc=new JTextField();
+		txt_phno=new JTextField();
+		txt_pincode=new JTextField();
+		txt_city=new JTextField();
+		txt_state=new JTextField();
+		txt_username=new JTextField();
+		txt_password=new JTextField();
+		jcb_gender=new JComboBox();
+		jcb_gender.addItem("Male");
+		jcb_gender.addItem("Female");
+		jcb_gender.addItem("Other");
+		jbtn_submit=new JButton("Submit");
+		jbtn_view=new JButton("View");
+		jbtn_view.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){
+                setVisible(false);
+                JFrame f=new JFrame("VIEW DOCTOR"); 
+          	   f.setBounds(0,0, 1500, 1500);
+          	   f.setVisible(true);
+          	/*   f.setBackground(Color.red);
+          	   JTextField j1=new JTextField();
+          	  
+          	   j1.setBounds(250,100,250,50);
+          	   f.add(j1);
+          	
+          	JTextField j2=new JTextField();
+        	   j2.setBounds(250,150,250,50);
+        	   f.add(j2);
+        	   JTextField j3=new JTextField();
+          	   j3.setBounds(250,200,250,50);
+          	   f.add(j3);
+          	 JTextField j4=new JTextField();
+        	   j4.setBounds(250,250,250,50);
+        	   f.add(j4);
+        	   JTextField j5=new JTextField();
+          	   j5.setBounds(250,300,250,50);
+          	   f.add(j5);
+          	 JTextField j6=new JTextField();
+        	   j6.setBounds(250,350,250,50);
+        	   f.add(j6);
+        	   JTextField j7=new JTextField();
+          	   j7.setBounds(250,400,250,50);
+          	   f.add(j7);
+          	 
+          	JTextField j8=new JTextField();
+       	   //j8.setBackground(Color.blue);
+        	   j8.setBounds(500,800,250,50);
+        	   f.add(j8);
+          	   String s1="",s2="",s3="",s4="",s5="",s6="",s7="",s8="";
+          	   
+          	 try
+             {
+          	   Connection con=null;
+          	   Class.forName("com.mysql.cj.jdbc.Driver"); //Registering JDBC Driver
+          	   con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Khaash@123");
+                 Statement  st = con.createStatement();
+                 String a="select * from signupdocdetails";
+                 ResultSet h= st.executeQuery(a);
+                 //con.close();
+                 while(h.next())
+                 {
+               	  s1=h.getString("int_docid");
+                    
+               	  s2=h.getString("str_name"); 
+                     s3=h.getString("str_spc"); 
+                     s4=h.getString("int_phno");
+                     s5=h.getString("str_gender");
+                     s6=h.getString("str_city");
+                     s7=h.getString("str_state"); 
+                     s8=h.getString("int_pincode");
+                     
+                 }
+                 j1.setText(s1);
+                 j2.setText(s2);
+                 j3.setText(s3);
+                 j4.setText(s4);
+                 j5.setText(s5);
+                 j6.setText(s6);
+                 j7.setText(s7);
+                 j8.setText(s8);
+             }
+             catch(Exception ea)
+             {
+                 System.out.println(ea);
+             }*/
+          	 DefaultTableModel table = new DefaultTableModel();
+             JTable jt = new JTable(table);
+             jt.setAutoscrolls(true);
+             table.addColumn("Doc ID");
+             table.addColumn("Name");
+             table.addColumn("Specialization");
+             table.addColumn("Phone No");
+             table.addColumn("Gender");
+             table.addColumn("City");
+             table.addColumn("State");
+             table.addColumn("Pincode");
+             table.addColumn("Username");
+             table.addColumn("Password");
+             
+             JPanel jp = new JPanel();
+             JScrollPane jsp;
+             jsp = new JScrollPane(jt,
+             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            jsp.setPreferredSize(new Dimension(900,900));
+             jp.add(jsp);
+             jp.setBackground(Color.WHITE);
+             jp.setBounds(200,550,900,400);
+             f.add(jp,BorderLayout.CENTER);
+             DefaultTableModel table1 = (DefaultTableModel)jt.getModel();
+             table1.addRow(new Object[]
+                     { 
+                     	      
+                        txt_docid.getText(),
+                      txt_name.getText(),
+                        txt_spc.getText(),
+                        txt_phno.getText(),
+                        jcb_gender.getSelectedItem().toString(),
+                        txt_city.getText(),
+                        txt_state.getText(),
+                       txt_pincode.getText(),
+                        txt_username.getText(),
+                        txt_password.getText() 
+                   });
+             
+     
+             
+      }
+		}); 
+                jbtn_Back=new JButton("Back");
+                jbtn_Back.addActionListener(new ActionListener(){  
+               public void actionPerformed(ActionEvent e){
+                   setVisible(false);
+         }
+                });
+                jbtn_submit.addActionListener(this);  
+                	
+              //      public void actionPerformed(ActionEvent e){
+                    	
+                /*	   DefaultTableModel table = new DefaultTableModel();
+                        JTable jt = new JTable(table);
+                        jt.setAutoscrolls(true);
+                        table.addColumn("Doc ID");
+                        table.addColumn("Name");
+                        table.addColumn("Specialization");
+                        table.addColumn("Phone No");
+                        table.addColumn("Gender");
+                        table.addColumn("City");
+                        table.addColumn("State");
+                        table.addColumn("Pincode");
+                        table.addColumn("Username");
+                        table.addColumn("Password");
+                        
+                        JPanel jp = new JPanel();
+                        JScrollPane jsp;
+                        jsp = new JScrollPane(jt,
+                        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                       jsp.setPreferredSize(new Dimension(900,900));
+                        jp.add(jsp);
+                        jp.setBackground(Color.WHITE);
+                        jp.setBounds(200,550,900,400);
+                        f.add(jp,BorderLayout.CENTER);
+                        DefaultTableModel table1 = (DefaultTableModel)jt.getModel();
+                        table1.addRow(new Object[]
+                                { */
+                                	      
+                              /*     txt_docid.getText(),
+                                 txt_name.getText(),
+                                   txt_spc.getText(),
+                                   txt_phno.getText(),
+                                   jcb_gender.getSelectedItem().toString(),
+                                   txt_city.getText(),
+                                   txt_state.getText(),
+                                  txt_pincode.getText(),
+                                   txt_username.getText(),
+                                   txt_password.getText() */
+                              // });
+              
+                     
+
+		
+	   	 lbl_docid.setBounds(100, 50, 120, 25);
+		 lbl_name.setBounds(100, 100, 120, 25);
+		 lbl_spc.setBounds(100,150,120,25);
+		 lbl_phno.setBounds(100,200,120,25);
+		 lbl_gender.setBounds(100, 250, 120, 25);
+		 lbl_city.setBounds(100,300,120,25);
+
+		 lbl_state.setBounds(100, 350, 120, 25);
+		 lbl_pincode.setBounds(100, 400, 120, 25);
+		 lbl_username.setBounds(100, 450, 120, 25);
+		 lbl_password.setBounds(100, 500, 120, 25);
+
+		 jbtn_submit.setBounds(100, 550, 80, 25);
+                 jbtn_Back.setBounds(200, 550, 80, 25);
+jbtn_view.setBounds(300, 550, 80, 25);
+		 txt_docid.setBounds(230, 50, 120, 25);
+		 txt_name.setBounds(230, 100, 120, 25);
+		 txt_spc.setBounds(230, 150, 120, 25);
+		 txt_phno.setBounds(230, 200, 120, 25);
+		 jcb_gender.setBounds(230, 250, 120, 25);
+		 txt_city.setBounds(230, 300, 120, 25);
+		 txt_state.setBounds(230, 350, 120, 25);
+		 txt_pincode.setBounds(230,400,120,25);
+		 txt_username.setBounds(230,450,120,25);
+		 txt_password.setBounds(230,500,120,25);
+
+
+		 co.add(lbl_docid);
+		 co.add(lbl_name);
+		 co.add(lbl_spc);
+		 co.add(lbl_phno);
+		 co.add(lbl_gender);
+		 co.add(lbl_city);
+		 co.add(lbl_state);
+		 co.add(lbl_pincode);
+		 co.add(lbl_username);
+		 co.add(lbl_password);
+		 co.add(jbtn_submit);
+                 co.add(jbtn_Back);
+                 co.add(jbtn_view);
+                // co.add(jbtn_back2);
+		 co.add(txt_docid);
+		 co.add(txt_name);
+		 co.add(txt_spc);
+		 co.add(txt_phno);
+		 co.add(jcb_gender);
+		 co.add(txt_pincode);
+		 co.add(txt_city);
+		 co.add(txt_state);
+		 co.add(txt_username);
+		 co.add(txt_password);
+
+		 setSize(800, 800);
+		 setVisible(true);
+	}
+	public void actionPerformed(ActionEvent ae) {
+Object obj_source=ae.getSource();
+if(obj_source==jbtn_submit)
+{try
+{
+int int_docid=Integer.parseInt(txt_docid.getText());
+String str_name=txt_name.getText();
+String str_spc=txt_spc.getText();
+String int_phno=txt_phno.getText();
+String str_gender=jcb_gender.getSelectedItem().toString();
+String str_city=txt_city.getText();
+String str_state=txt_state.getText();
+int int_pincode=Integer.parseInt(txt_pincode.getText());
+String str_username=txt_username.getText();
+String str_password=txt_password.getText();
+Connection con=null;
+Class.forName("com.mysql.cj.jdbc.Driver"); 
+con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Khaash@123"); 
+ Statement stmt=con.createStatement();
+ String query="insert into signupdocdetails values('"+int_docid+"','"+str_name+"','"+str_spc+"','"+int_phno+"','"+str_gender+"','"+str_city+"','"+str_state+"','"+int_pincode+"','"+str_username+"','"+str_password+"')";
+ stmt.executeUpdate(query);
+ con.setAutoCommit(true);
+ JOptionPane.showMessageDialog(this, "Details Added Successfully!");
+}
+catch(Exception ex)
+{
+JOptionPane.showMessageDialog(this, ex.toString());
+}}
+}
+public static void main(String args[])
+{
+signupDoctor Demo1=new signupDoctor();
+}
+}
